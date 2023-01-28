@@ -1,0 +1,86 @@
+<html>
+<head>
+<title></title>
+</head>
+
+<body>
+
+<h1>Functions & validation</h1>
+
+<form onsubmit="return validatePassword()">
+
+<td>first name:</td>
+<input type="text" id="fname" value=""> 
+<span id="first_name_empty"></span><br>
+
+<td>last name:</td>
+<input type="text" id="lname" value=""> 
+<span id="last_name_empty"></span><br>
+
+<td>password:</td>
+<input type="password" id="password1" value=""> 
+<span id="message"></span><br>
+
+<input type="submit" value="Check">
+
+</form>
+
+<script>
+  function validatePassword() {
+      var your_password = document.getElementById("password1").value;
+      var first_name = document.getElementById("fname").value;
+      var last_name = document.getElementById("lname").value;
+
+      var has_upper = /^(?=.*[A-Z]).*$/;
+      var has_lower = /^(?=.*[a-z]).*$/;
+
+      if(first_name == "") {
+        document.getElementById("first_name_empty").innerHTML = "Enter first name";
+        return false;
+      }
+      
+      if(!isNaN(first_name)){
+        document.getElementById("first_name_empty").innerHTML = "Only letters allowed";
+        return false;
+      }
+
+      if(last_name == "") {
+        document.getElementById("last_name_empty").innerHTML = "Enter last name";
+        return false;
+      }
+  
+      if(!isNaN(last_name)){
+        document.getElementById("last_name_empty").innerHTML = "Only letters allowed";
+        return false;
+      } 
+    
+      if(your_password == "") {
+        document.getElementById("message").innerHTML = "Enter password";
+        return false;
+      }
+     
+      if (!has_lower.test(your_password)) {
+        document.getElementById("message").innerHTML = "Must include a lowercase letter";
+        return false;
+      }
+
+      if (!has_upper.test(your_password)) {
+        document.getElementById("message").innerHTML = "Must include an uppercase letter";
+        return false;
+      }
+
+      if(your_password.length < 8) {
+        document.getElementById("message").innerHTML = "Password must be at least 8 characters";
+        return false;
+      }
+
+      
+      else {
+        alert ("Your password created successfully");
+        document.write("All entries are successful");
+      }
+   }
+  </script>
+</body>
+</html>
+
