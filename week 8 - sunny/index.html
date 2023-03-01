@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>weather</h1>
+  <p>enter city: <input id="city"></p>
+  <button type="button" onclick="ShowWeather()">search</button>        
+  <h2 id="cityNow">none</h2>
+  
+  <div id="weatherDiv">
+    <div id="allDiv">    
+      <div class="icons">
+          <p class="weather" id="day1"></p>
+          <div class="image"><img id="img1"></div>
+          <p class="dayMin" id="day1Min"></p>
+          <p class="dayMax" id="day1Max"></p>
+          <p class="dayHum" id="day1Hum"></p>
+          <p class="dayDesc" id="day1Desc"></p>
+      </div>
+      <div class="icons">
+          <p class="weather" id="day2"></p>
+          <div class="image"><img id="img2"></div>
+          <p class="dayMin" id="day2Min"></p>
+          <p class="dayMax" id="day2Max"></p>
+          <p class="dayHum" id="day2Hum"></p>
+          <p class="dayDesc" id="day2Desc"></p>
+      </div>
+        <div class="icons">
+          <p class="weather" id="day3"></p>
+          <div class="image"><img id="img3"></div>
+          <p class="dayMin" id="day3Min"></p>
+          <p class="dayMax" id="day3Max"></p>
+          <p class="dayHum" id="day3Hum"></p>
+          <p class="dayDesc" id="day3Desc"></p>
+        </div>
+        <div class="icons">
+          <p class="weather" id="day4"></p>
+          <div class="image"><img id="img4"></div>
+          <p class="dayMin" id="day4Min"></p>
+          <p class="dayMax" id="day4Max"></p>
+          <p class="dayHum" id="day4Hum"></p>
+          <p class="dayDesc" id="day4Desc"></p>
+        </div>
+        <div class = "icons">
+            <p class="weather" id="day5"></p>
+            <div class="image"><img id="img5"></div>
+            <p class="dayMin" id="day5Min"></p>
+            <p class="dayMax" id="day5Max"></p>
+            <p class="dayHum" id="day5Hum"></p>
+            <p class="dayDesc" id="day5Desc"></p>
+        </div>
+        </div>
+    </div>
+
+  <script>
+  function ShowWeather() {
+  let newCity = document.getElementById("city").value;
+  document.getElementById("cityNow").innerHTML = newCity;
+
+  let cityFetch = `https://api.openweathermap.org/data/2.5/forecast?q=${newCity},us&appid=6a55b4f92ce8230cec7e6575bfc81e3a`;
+  fetch(cityFetch)
+    .then(response => response.json())
+    .then(data => {
+      for (let i = 0; i < 5; i++) {
+        let tempMin = (Number(data.list[i].main.temp_min - 273.15) * (9/5) + 32).toFixed(2) + " F";
+        let tempMax = (Number(data.list[i].main.temp_max - 273.15) * (9/5) + 32).toFixed(2) + " F";
+        let tempHum = (Number(data.list[i].main.humidity));
+        let weatherDesc = data.list[i].weather[0].description;
+
+
+        let iconFetch = `http://openweathermap.org/img/wn/${data.list[i].weather[0].icon}.png`;
+        document.getElementById(`day${i+1}Min`).innerHTML = `Min: ${tempMin}`;
+        document.getElementById(`day${i+1}Max`).innerHTML = `Max: ${tempMax}`;
+        document.getElementById(`day${i+1}Hum`).innerHTML = `Hum: ${tempHum}`;
+        document.getElementById(`day${i+1}Desc`).innerHTML = `Desc: ${weatherDesc}`;
+        document.getElementById(`img${i+1}`).src = iconFetch;
+        
+      }
+      
+    })
+    for (let i = 0; i < 5; i++) {
+      let forecast_date = new Date((Date.now() / 1000 + (86400 * i)) * 1000);
+      let date = forecast_date.toLocaleDateString();
+      document.getElementById(`day${i+1}`).innerHTML = date;
+}
+}
+</script>
+
+</body>
+</html>
+
