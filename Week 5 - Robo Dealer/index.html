@@ -3,6 +3,69 @@
   <head>
     <script src="script.js"></script>
   </head>
+  <body>
+    <h1>Robo Dealer</h1>
+    <button onclick="getElementById('card_hand').innerHTML=selectCards()">Hand Deal</button>
+    <p id="card_hand"></p>
+
+    <script>
+      function Card(value, suit) {
+        this.value = value;
+        this.suit = suit;
+      }
+
+      function allCards() {
+        let value = [2,3,4,5,6,7,8,9,10, "Ace", "Jack", "Queen", "King"]
+        let suit = ["Spades", "Hearts", "Diamonds", "Clubs"]
+
+        let chosen_card = [];
+        let value_total = value.length
+        let suit_total = suit.length
+        for (let i = 0; i < value_total; i++) {
+          for (let j = 0; j < suit_total; j++) {
+            chosen_card.push(new Card(value[i], suit[j]));
+          }
+        }
+        return chosen_card;
+      }
+
+      function selectCards() {
+        let chosen_card = allCards();
+        let cards_list = [];
+
+        for (let i = 0; i < 5; i++) {
+          let position = Math.floor(Math.random() * chosen_card.length);
+          let random_card = chosen_card.splice(position, 1)[0];
+          cards_list.push(random_card.value + " of " + random_card.suit);
+        }
+        return cards_list.join("<br />");
+      }
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <script src="script.js"></script>
+  </head>
 <body>
   <h1>Robo Dealer</h1>
   <button onclick="getElementById('card_hand').innerHTML=Cards()">Hand Deal</button>
@@ -35,4 +98,4 @@
 
 </body>
 </html>
-
+ -->
