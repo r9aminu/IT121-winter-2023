@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      canvas {
+        border: 2px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    
+    <script>
+      window.onload = init;
+      let canvas = document.getElementById("canvas");
+      let ctx = canvas.getContext("2d");
+      canvas.height = 350;
+      canvas.width = 500;
+    
+      function init() {
+        draw();
+      }
+
+      // assign ball position
+      let ball_position = [{x: 0, y: 30, rotation: 0}, {x: 0, y: 90, rotation: 0}, 
+                        {x: 0, y: 150, rotation: 0}, {x: 0, y: 210, rotation: 0}, 
+                        {x: 0, y: 270, rotation: 0}];
+
+      // ball speed assigned randomly: 1-5px
+      for (let i = 0; i < ball_position.length; i++) {
+        ball_position[i].speed = Math.floor(Math.random() * 5) + 1;
+      }
+
+      let colors = ['red', 'gold', 'green', 'blue', 'pink'];
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // title written inside a rectangle
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0, 0, 110, 30);
+        ctx.fillStyle = "white";
+        ctx.font = "bold 16px Arial";
+        ctx.fillText("Moving Balls", 5, 20);
+        
+        // move balls, assign colors, assign speed, 
+        // rotate, restart automatically
+        for (let i = 0; i < ball_position.length; i++) {
+          ctx.beginPath(); 
+          ball_position[i].x = ball_position[i].x + ball_position[i].speed;
+          ctx.fillStyle = colors[i % colors.length]; 
+          ctx.fill();
+          ball_position[i].rotation += 0.3; 
+        
+        if (ball_position[i].x > canvas.width) {
+        ball_position[i].x = 0;
+        }
+        
+        // updates and restarts
+        ctx.save(); 
+        ctx.translate(ball_position[i].x + 50, ball_position[i].y + 25); 
+        ctx.rotate(ball_position[i].rotation); 
+        
+        ctx.arc(0, 0, 25, 0, Math.PI * 2); 
+        ctx.fill(); 
+        ctx.restore(); 
+        }
+      window.setTimeout(draw, 50);
+    }
+  </script>
+  </body>
+</html>
