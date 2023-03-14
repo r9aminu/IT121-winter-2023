@@ -1,0 +1,21 @@
+{
+    "name": "new-app",
+    "version": "1.0.0",
+    "description": "npm project",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Aminu Abubakar",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/r9aminu/IT121-winter-2023.git"
+    },
+    "bugs": {
+      "url": "https://github.com/r9aminu/IT121-winter-2023/issues"
+    },
+    "homepage": "https://github.com/r9aminu/IT121-winter-2023#readme"
+  }
+  
